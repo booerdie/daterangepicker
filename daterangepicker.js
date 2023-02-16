@@ -11,6 +11,7 @@
         // AMD. Make globaly available as well
         define(['moment', 'jquery'], function (moment, jquery) {
             if (!jquery.fn) jquery.fn = {}; // webpack server rendering
+            if (typeof moment !== 'function') moment = moment['default'];
             return factory(moment, jquery);
         });
     } else if (typeof module === 'object' && module.exports) {
@@ -29,21 +30,20 @@
     }
 }(typeof window !== 'undefined' ? window : this, function(moment, $) {
     var DateRangePicker = function(element, options, cb) {
-        if (typeof moment !== 'function') moment = moment['default'];
 
         //default settings for options
         this.parentEl = 'body';
         this.element = $(element);
-        this.startDate = moment.startOf('day');
-        this.endDate = moment.endOf('day');
+        this.startDate = moment().startOf('day');
+        this.endDate = moment().endOf('day');
         this.minDate = false;
         this.maxDate = false;
         this.maxSpan = false;
         this.autoApply = false;
         this.singleDatePicker = false;
         this.showDropdowns = false;
-        this.minYear = moment.subtract(100, 'year').format('YYYY');
-        this.maxYear = moment.add(100, 'year').format('YYYY');
+        this.minYear = moment().subtract(100, 'year').format('YYYY');
+        this.maxYear = moment().add(100, 'year').format('YYYY');
         this.showWeekNumbers = false;
         this.showISOWeekNumbers = false;
         this.showCustomRangeLabel = true;
