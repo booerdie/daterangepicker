@@ -11,7 +11,6 @@
         // AMD. Make globaly available as well
         define(['moment', 'jquery'], function (moment, jquery) {
             if (!jquery.fn) jquery.fn = {}; // webpack server rendering
-            if (typeof moment !== 'function') moment = moment['default'];
             return factory(moment, jquery);
         });
     } else if (typeof module === 'object' && module.exports) {
@@ -28,6 +27,7 @@
         // Browser globals
         root.daterangepicker = factory(root.moment, root.jQuery);
     }
+    if (typeof moment !== 'function') moment = moment['default'];
 }(typeof window !== 'undefined' ? window : this, function(moment, $) {
     var DateRangePicker = function(element, options, cb) {
 
